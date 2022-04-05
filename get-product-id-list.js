@@ -18,7 +18,7 @@ async function getProductIdsList(list = 'Deal') {
   const params = {
     market: 'ar',
     language: 'es-ar',
-    itemType: 'Game',
+    itemTypes: 'Game',
     deviceFamily: 'Windows.Xbox',
     count: '2000',
     skipItems: '0',
