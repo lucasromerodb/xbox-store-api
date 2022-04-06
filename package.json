@@ -1,5 +1,8 @@
 {
   "type": "module",
+  "scripts": {
+    "dev": "node --experimental-json-modules index.js"
+  },
   "dependencies": {
     "node-fetch": "^3.2.3"
   }
