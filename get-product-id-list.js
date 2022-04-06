@@ -1,5 +1,7 @@
 import fetch from 'node-fetch';
 
+import config from './config.json' assert {type: "json"};
+
 const API_PRODUCT_ID_LIST = 'https://reco-public.rec.mp.microsoft.com/channels/Reco/V8.0/Lists/';
 
 const PRODUCT_ID_LISTS = {
@@ -16,8 +18,8 @@ const PRODUCT_ID_LISTS = {
 async function getProductIdsList(list = 'Deal') {
   const url = new URL(`${API_PRODUCT_ID_LIST}${PRODUCT_ID_LISTS[list]}`);
   const params = {
-    market: 'ar',
-    language: 'es-ar',
+    market: config.REGION,
+    language: `${config.LANG+"-"+config.REGION}`,
     itemTypes: 'Game',
     deviceFamily: 'Windows.Xbox',
     count: '2000',

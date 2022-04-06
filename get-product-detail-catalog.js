@@ -1,5 +1,7 @@
 import fetch from 'node-fetch';
 
+import config from './config.json' assert {type: "json"};
+
 const API_PRODUCT_DETAIL_CATALOG = 'https://displaycatalog.mp.microsoft.com/v7.0/products/';
 
 /**
@@ -12,8 +14,8 @@ function mapProducts(products) {
     // TODO: Code smell
     const url = new URL(API_PRODUCT_DETAIL_CATALOG);
     const params = {
-      market: 'ar',
-      languages: 'es-ar',
+      market: config.REGION,
+      languages: `${config.LANG+"-"+config.REGION}`,
       bigIds: element.ProductId,
     }
 
@@ -71,8 +73,8 @@ async function getProductDetailCatalog(productIds = ['9NJRX71M5X9P', '9N9J38LPVS
 
   const url = new URL(API_PRODUCT_DETAIL_CATALOG);
   const params = {
-    market: 'ar',
-    languages: 'es-ar',
+    market: config.REGION,
+    languages: `${config.LANG+"-"+config.REGION}`,
     bigIds: productIds.join(','),
   }
 
