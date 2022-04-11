@@ -1,6 +1,16 @@
 {
   "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
   "dependencies": {
+    "express": "^4.17.3",
     "node-fetch": "^3.2.3"
+  },
+  "engines": {
+    "node": ">=16.14.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
