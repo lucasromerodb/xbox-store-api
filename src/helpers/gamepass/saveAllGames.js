@@ -6,7 +6,11 @@ import fs from "fs";
 
 function saveFile(dir, content, fileName) {
   fs.writeFile(`${dir}/${fileName}.json`, content, function (err) {
-    if (err) return console.log(err);
+    if (err) {
+      console.log(`❌ ${fileName}.json couldn't be saved!`);
+      return console.log(err);
+    }
+
     console.log(`✅ ${fileName}.json Saved!`);
   });
 }
@@ -82,7 +86,7 @@ async function init() {
 
   try {
     saveFile(`./extension_output/${timestamp}`, JSON.stringify(content), "gp-results");
-    saveFile(`./extension_output`, JSON.stringify(content, null, 0), "output");
+    saveFile(`./extension_output`, JSON.stringify(content), "output");
   } catch (err) {
     console.error(err);
   }
