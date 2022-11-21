@@ -1,9 +1,6 @@
 import fetch from "node-fetch";
 import fs from "fs";
 
-// import { readFile } from "fs/promises";
-// const games = JSON.parse(await readFile(new URL("./response.json", import.meta.url)));
-
 function saveFile(dir, content, fileName) {
   fs.writeFile(`${dir}/${fileName}.json`, content, function (err) {
     if (err) {
@@ -92,4 +89,4 @@ async function init() {
   }
 }
 
-init();
+export default init;

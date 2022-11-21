@@ -10,6 +10,7 @@
     "express": "^4.17.3",
     "helmet": "^6.0.0",
     "morgan": "^1.10.0",
+    "node-cron": "^3.0.2",
     "node-fetch": "^3.2.10"
   },
   "engines": {
