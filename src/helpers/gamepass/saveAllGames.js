@@ -73,6 +73,7 @@ async function init() {
   const leaving_Details = await fetchDetails(timestamp, leaving_Ids, "leaving");
 
   const content = {
+    updated_at: timestamp,
     all: all_Details,
     new: new_Details,
     coming: coming_Details,
@@ -81,7 +82,7 @@ async function init() {
 
   try {
     saveFile(`./extension_output/${timestamp}`, JSON.stringify(content), "gp-results");
-    saveFile(`./extension_output`, JSON.stringify(content), "output");
+    saveFile(`./extension_output`, JSON.stringify(content, null, 0), "output");
   } catch (err) {
     console.error(err);
   }
