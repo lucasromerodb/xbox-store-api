@@ -1,4 +1,4 @@
 node_modules
 .DS_Store
-extension_output/**/*.json
+output/**/*.json
 .env

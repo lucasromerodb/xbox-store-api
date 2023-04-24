@@ -37,6 +37,7 @@ removeOlderFolders();
 // Game Pass scheduled fetch (every midnight)
 cron.schedule('0 12 * * *', () => {
   getGames();
+  removeOlderFolders();
 });
 
 // Listen

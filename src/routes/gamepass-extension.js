@@ -2,7 +2,7 @@ import fs from 'fs';
 import { Router } from 'express';
 const router = Router();
 
-const filePath = './extension_output/output-extension.json';
+const filePath = './output/output-extension.json';
 
 router.get('/', (req, res) => {
   fs.readFile(filePath, function (err, data) {

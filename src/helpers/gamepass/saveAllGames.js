@@ -41,7 +41,7 @@ async function fetchIds(timestamp, list, location = 'US', language = 'en-us') {
   const responseJson = await response.json();
   const data = { Products: responseJson.slice(1).map((e) => e.id) };
 
-  saveFile(`./extension_output/${timestamp}`, JSON.stringify(responseJson), `gp-ids-${list}`);
+  saveFile(`./output/${timestamp}`, JSON.stringify(responseJson), `gp-ids-${list}`);
   return data;
 }
 
@@ -56,14 +56,14 @@ async function fetchDetails(timestamp, body = {}, list, location = 'US', languag
   const responseJson = await response.json();
   const data = dataParser(responseJson.Products);
 
-  saveFile(`./extension_output/${timestamp}`, JSON.stringify(responseJson), `gp-details-${list}`);
+  saveFile(`./output/${timestamp}`, JSON.stringify(responseJson), `gp-details-${list}`);
 
   return data;
 }
 
 async function init() {
   const timestamp = new Date().toJSON();
-  fs.mkdirSync(`./extension_output/${timestamp}`);
+  fs.mkdirSync(`./output/${timestamp}`);
 
   const all_Ids = await fetchIds(timestamp, 'all');
   const new_Ids = await fetchIds(timestamp, 'new');
@@ -100,10 +100,10 @@ async function init() {
   };
 
   try {
-    saveFile(`./extension_output/${timestamp}`, JSON.stringify(contentFull), 'gp-results');
-    saveFile(`./extension_output`, JSON.stringify(contentFull), 'output-full');
-    saveFile(`./extension_output`, JSON.stringify(contentExtension), 'output-extension');
-    saveFile(`./extension_output`, JSON.stringify(contentBot), 'output-bot');
+    saveFile(`./output/${timestamp}`, JSON.stringify(contentFull), 'gp-results');
+    saveFile(`./output`, JSON.stringify(contentFull), 'output-full');
+    saveFile(`./output`, JSON.stringify(contentExtension), 'output-extension');
+    saveFile(`./output`, JSON.stringify(contentBot), 'output-bot');
   } catch (err) {
     console.error(err);
   }
