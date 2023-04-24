@@ -39,4 +39,25 @@ router.get('/leaving', (req, res) => {
   });
 });
 
+router.get('/updates', (req, res) => {
+  fs.readFile(filePath, function (err, data) {
+    if (err) throw err;
+    res.send({
+      new: JSON.parse(data).new,
+      coming: JSON.parse(data).coming,
+      leaving: JSON.parse(data).leaving,
+    });
+  });
+});
+
+router.get('/search', (req, res) => {
+  fs.readFile(filePath, function (err, data) {
+    if (err) throw err;
+    res.send({
+      all: JSON.parse(data).all,
+      coming: JSON.parse(data).coming,
+    });
+  });
+});
+
 export default router;
