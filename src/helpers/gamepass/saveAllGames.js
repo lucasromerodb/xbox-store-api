@@ -86,8 +86,7 @@ async function init() {
   const contentExtension = {
     updated_at: timestamp,
     all: all_Details.map(({ id, title, EAPlay, platforms }) => ({ id, title, EAPlay, platforms })),
-    new: new_Details.map(({ id, title, EAPlay, platforms }) => ({ id, title, EAPlay, platforms })),
-    coming: coming_Details.map(({ id, title, EAPlay, platforms }) => ({ id, title, EAPlay, platforms })),
+    coming: coming_Details.map(({ id, title, EAPlay, platforms, dateAdded }) => ({ id, title, EAPlay, platforms, dateAdded })),
     leaving: leaving_Details.map(({ id, title, EAPlay, platforms }) => ({ id, title, EAPlay, platforms })),
   };
 
@@ -95,7 +94,7 @@ async function init() {
     updated_at: timestamp,
     all: all_Details.map(({ id, title }) => ({ id, title })),
     new: new_Details.map(({ id, title }) => ({ id, title })),
-    coming: coming_Details.map(({ id, title }) => ({ id, title })),
+    coming: coming_Details.map(({ id, title, dateAdded }) => ({ id, title, dateAdded })),
     leaving: leaving_Details.map(({ id, title }) => ({ id, title })),
   };
 

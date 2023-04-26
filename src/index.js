@@ -25,7 +25,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('json spaces', 2);
 
 // routes
-app.use('/api/gamepass', gamepass_extension);
+app.use('/api/gamepass', gamepass_full);
 app.use('/api/gamepass/full', gamepass_full);
 app.use('/api/gamepass/extension', gamepass_extension);
 app.use('/api/gamepass/bot', gamepass_bot);
