@@ -7,7 +7,12 @@ const filePath = './output/output-extension.json';
 router.get('/', (req, res) => {
   fs.readFile(filePath, function (err, data) {
     if (err) throw err;
-    res.send(JSON.parse(data));
+    res.send({
+      update_at: JSON.parse(data).update_at,
+      all: JSON.parse(data).all,
+      coming: JSON.parse(data).coming,
+      leaving: JSON.parse(data).leaving,
+    });
   });
 });
 
