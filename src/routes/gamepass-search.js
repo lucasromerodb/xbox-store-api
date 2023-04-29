@@ -14,6 +14,7 @@ router.get("/:gameId/:market", async (req, res) => {
 
   const response = await fetch(`https://catalog.gamepass.com/products?language=en&market=${market || "us"}&hydration=MobileDetailsForConsole`, {
     method: "POST",
+    mode: "no-cors",
     headers: {
       "Content-Type": "application/json",
     },
