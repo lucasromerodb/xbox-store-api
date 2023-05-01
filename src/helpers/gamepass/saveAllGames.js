@@ -108,17 +108,17 @@ async function init() {
 
   const contentExtension = {
     updated_at: timestamp,
-    all: all_Details.length ? all_Details.map(({ id, title, EAPlay, platforms }) => ({ id, title, EAPlay, platforms })) : [],
-    coming: coming_Details.length ? coming_Details.map(({ id, title, EAPlay, platforms, dateAdded }) => ({ id, title, EAPlay, platforms, dateAdded })) : [],
-    leaving: leaving_Details.length ? leaving_Details.map(({ id, title, EAPlay, platforms }) => ({ id, title, EAPlay, platforms })) : [],
+    all: all_Details && all_Details.length ? all_Details.map(({ id, title, EAPlay, platforms }) => ({ id, title, EAPlay, platforms })) : [],
+    coming: coming_Details && coming_Details.length ? coming_Details.map(({ id, title, EAPlay, platforms, dateAdded }) => ({ id, title, EAPlay, platforms, dateAdded })) : [],
+    leaving: leaving_Details && leaving_Details.length ? leaving_Details.map(({ id, title, EAPlay, platforms }) => ({ id, title, EAPlay, platforms })) : [],
   };
 
   const contentBot = {
     updated_at: timestamp,
-    all: all_Details.length ? all_Details.map(({ id, title }) => ({ id, title })) : [],
-    new: new_Details.length ? new_Details.map(({ id, title }) => ({ id, title })) : [],
-    coming: coming_Details.length ? coming_Details.map(({ id, title, dateAdded }) => ({ id, title, dateAdded })) : [],
-    leaving: leaving_Details.length ? leaving_Details.map(({ id, title }) => ({ id, title })) : [],
+    all: all_Details && all_Details.length ? all_Details.map(({ id, title }) => ({ id, title })) : [],
+    new: new_Details && new_Details.length ? new_Details.map(({ id, title }) => ({ id, title })) : [],
+    coming: coming_Details && coming_Details.length ? coming_Details.map(({ id, title, dateAdded }) => ({ id, title, dateAdded })) : [],
+    leaving: leaving_Details && leaving_Details.length ? leaving_Details.map(({ id, title }) => ({ id, title })) : [],
   };
 
   try {
