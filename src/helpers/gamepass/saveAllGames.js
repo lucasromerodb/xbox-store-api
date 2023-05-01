@@ -95,7 +95,7 @@ async function init() {
   const leaving_Details = leaving_Ids ? await fetchDetails(timestamp, leaving_Ids, "leaving") : null;
 
   if (!all_Details || !new_Details || !coming_Details || !leaving_Details) {
-    console.error("❌ init() failed. Missing details...", { all_Details, new_Details, coming_Details, leaving_Details });
+    console.error("❌ init() failed. Missing details...", { all_Details: !!all_Details, new_Details: !!new_Details, coming_Details: !!coming_Details, leaving_Details: !!leaving_Details });
     return;
   }
 
