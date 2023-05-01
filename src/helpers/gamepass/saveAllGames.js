@@ -14,7 +14,7 @@ function saveFile(dir, content, fileName) {
 
 export function dataParser(data) {
   if (!data) {
-    console.error('dataParser "data" is missing');
+    console.error('❌ dataParser "data" is missing');
     return;
   }
 
@@ -89,17 +89,22 @@ async function init() {
   const coming_Ids = await fetchIds(timestamp, "coming");
   const leaving_Ids = await fetchIds(timestamp, "leaving");
 
-  const all_Details = await fetchDetails(timestamp, all_Ids, "all");
-  const new_Details = await fetchDetails(timestamp, new_Ids, "new");
-  const coming_Details = await fetchDetails(timestamp, coming_Ids, "coming");
-  const leaving_Details = await fetchDetails(timestamp, leaving_Ids, "leaving");
+  const all_Details = all_Ids ? await fetchDetails(timestamp, all_Ids, "all") : null;
+  const new_Details = new_Ids ? await fetchDetails(timestamp, new_Ids, "new") : null;
+  const coming_Details = coming_Ids ? await fetchDetails(timestamp, coming_Ids, "coming") : null;
+  const leaving_Details = leaving_Ids ? await fetchDetails(timestamp, leaving_Ids, "leaving") : null;
+
+  if (!all_Details || !new_Details || !coming_Details || !leaving_Details) {
+    console.error("❌ init() failed. Missing details...", { all_Details, new_Details, coming_Details, leaving_Details });
+    return;
+  }
 
   const contentFull = {
     updated_at: timestamp,
     all: all_Details,
     new: new_Details,
     coming: coming_Details,
-    leaving: leaving_Details,
+    leaving: `leaving_Details`,
   };
 
   const contentExtension = {
