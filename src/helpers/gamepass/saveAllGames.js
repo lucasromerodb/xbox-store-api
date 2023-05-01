@@ -37,32 +37,42 @@ async function fetchIds(timestamp, list, location = "US", language = "en-us") {
     leaving: "393f05bf-e596-4ef6-9487-6d4fa0eab987",
   };
 
-  // expected url: https://catalog.gamepass.com/sigls/v2/?language=en&market=us&id=f6f1f99f-9b49-4ccd-b3bf-4d9767a77f5e
-  const response = await fetch(`https://catalog.gamepass.com/sigls/v2/?language=${language}&market=${location}&id=${LIST_OF_IDS[list]}`);
-  // expected response: [ { MISC }, { id: "abc123" }. { id: "cba321" } ]
-  const responseJson = await response.json();
-  // expected data: { Products: ["abc123", "cba321"] }
-  const data = { Products: responseJson.slice(1).map((e) => e.id) };
+  try {
+    // expected url: https://catalog.gamepass.com/sigls/v2/?language=en&market=us&id=f6f1f99f-9b49-4ccd-b3bf-4d9767a77f5e
+    const response = await fetch(`https://catalog.gamepass.com/sigls/v2/?language=${language}&market=${location}&id=${LIST_OF_IDS[list]}`);
+    // expected response: [ { MISC }, { id: "abc123" }. { id: "cba321" } ]
+    const responseJson = await response.json();
+    // expected data: { Products: ["abc123", "cba321"] }
+    const data = { Products: responseJson.slice(1).map((e) => e.id) };
 
-  saveFile(`./output/${timestamp}`, JSON.stringify(responseJson), `gp-ids-${list}`);
-  return data;
+    saveFile(`./output/${timestamp}`, JSON.stringify(responseJson), `gp-ids-${list}`);
+    return data;
+  } catch (error) {
+    console.error("❌ Failed to fetchIds... " + `https://catalog.gamepass.com/sigls/v2/?language=${language}&market=${location}&id=${LIST_OF_IDS[list]}`);
+    console.error(error);
+    return;
+  }
 }
 
 export async function fetchDetails(timestamp, body = {}, list, location = "US", language = "en-us") {
-  // expected url: https://catalog.gamepass.com/products?language=en&market=us&hydration=MobileDetailsForConsole
-  const response = await fetch(`https://catalog.gamepass.com/products?language=${language}&market=${location}&hydration=MobileDetailsForConsole`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
-  const responseJson = await response.json();
-  const data = dataParser(responseJson.Products);
-
-  saveFile(`./output/${timestamp}`, JSON.stringify(responseJson), `gp-details-${list}`);
-
-  return data;
+  try {
+    // expected url: https://catalog.gamepass.com/products?language=en&market=us&hydration=MobileDetailsForConsole
+    const response = await fetch(`https://catalog.gamepass.com/products?language=${language}&market=${location}&hydration=MobileDetailsForConsole`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const responseJson = await response.json();
+    const data = dataParser(responseJson.Products);
+    saveFile(`./output/${timestamp}`, JSON.stringify(responseJson), `gp-details-${list}`);
+    return data;
+  } catch (error) {
+    console.error("❌ Failed to fetchDetails..." + `https://catalog.gamepass.com/products?language=${language}&market=${location}&hydration=MobileDetailsForConsole`);
+    console.error(error);
+    return;
+  }
 }
 
 async function init() {
@@ -107,8 +117,8 @@ async function init() {
     saveFile(`./output`, JSON.stringify(contentFull), "output-full");
     saveFile(`./output`, JSON.stringify(contentExtension), "output-extension");
     saveFile(`./output`, JSON.stringify(contentBot), "output-bot");
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
   }
 }
 
