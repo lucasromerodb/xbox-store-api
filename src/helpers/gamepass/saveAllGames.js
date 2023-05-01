@@ -13,6 +13,11 @@ function saveFile(dir, content, fileName) {
 }
 
 export function dataParser(data) {
+  if (!data) {
+    console.error('dataParser "data" is missing');
+    return;
+  }
+
   return Object.values(data).map((game) => ({
     id: game.StoreId,
     title: game.ProductTitle,
