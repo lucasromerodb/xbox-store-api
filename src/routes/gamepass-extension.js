@@ -1,5 +1,6 @@
-import fs from 'fs';
 import { Router } from 'express';
+import fs from 'fs';
+
 const router = Router();
 
 const filePath = './output/output-extension.json';
@@ -7,7 +8,7 @@ const filePath = './output/output-extension.json';
 router.get('/', (req, res) => {
   fs.readFile(filePath, function (err, data) {
     if (err) throw err;
-    res.send({
+    res.set("Cache-Control", "public, s-maxage=86400, stale-while-revalidate").send({
       updated_at: JSON.parse(data).updated_at,
       all: JSON.parse(data).all,
       coming: JSON.parse(data).coming,
