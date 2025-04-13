@@ -1,7 +1,7 @@
+import { Router } from "express";
 import fetch from "node-fetch";
 import queryComposer from "../helpers/queryComposer.js";
 
-import { Router } from "express";
 const router = Router();
 
 const API_PRODUCT_ID_LIST = "https://reco-public.rec.mp.microsoft.com/channels/Reco/V8.0/Lists/";

@@ -1,8 +1,8 @@
-import fetch from "node-fetch";
-import queryComposer from "../helpers/queryComposer.js";
-import gameMapper from "../helpers/gameMapper.js";
-
 import { Router } from "express";
+import fetch from "node-fetch";
+import gameMapper from "../helpers/gameMapper.js";
+import queryComposer from "../helpers/queryComposer.js";
+
 const router = Router();
 
 const API_PRODUCT_DETAIL_CATALOG = "https://displaycatalog.mp.microsoft.com/v7.0/products/";
@@ -39,6 +39,7 @@ router.get("/:list", async (req, res) => {
 
     if (GAMES_DATA.Products && GAMES_DATA.Products.length > 0) {
       const games = gameMapper(GAMES_DATA.Products);
+      // TRY TO CACHE RESPONSE // res.set("Cache-Control", "public, s-maxage=86400, stale-while-revalidate").json(games);
       res.json(games);
     } else {
       res.status(404).send("No games found");
