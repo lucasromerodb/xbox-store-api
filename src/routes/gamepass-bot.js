@@ -1,62 +1,46 @@
-import fs from 'fs';
+import getGames from '../helpers/gamepass/fetchGames.js';
 import { Router } from 'express';
 const router = Router();
 
-const filePath = './output/output-bot.json';
+router.get('/', async (req, res) => {
+  const data = await getGames('bot');
+  res.send(data);
+});
 
-router.get('/', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send(JSON.parse(data));
+router.get('/all', async (req, res) => {
+  const data = await getGames('bot');
+  res.send(data.all);
+});
+
+router.get('/new', async (req, res) => {
+  const data = await getGames('bot');
+  res.send(data.new);
+});
+
+router.get('/coming', async (req, res) => {
+  const data = await getGames('bot');
+  res.send(data.coming);
+});
+
+router.get('/leaving', async (req, res) => {
+  const data = await getGames('bot');
+  res.send(data.leaving);
+});
+
+router.get('/updates', async (req, res) => {
+  const data = await getGames('bot');
+  res.send({
+    new: data.new,
+    coming: data.coming,
+    leaving: data.leaving,
   });
 });
 
-router.get('/all', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send(JSON.parse(data).all);
-  });
-});
-
-router.get('/new', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send(JSON.parse(data).new);
-  });
-});
-
-router.get('/coming', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send(JSON.parse(data).coming);
-  });
-});
-
-router.get('/leaving', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send(JSON.parse(data).leaving);
-  });
-});
-
-router.get('/updates', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send({
-      new: JSON.parse(data).new,
-      coming: JSON.parse(data).coming,
-      leaving: JSON.parse(data).leaving,
-    });
-  });
-});
-
-router.get('/search', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send({
-      all: JSON.parse(data).all,
-      coming: JSON.parse(data).coming,
-    });
+router.get('/search', async (req, res) => {
+  const data = await getGames('bot');
+  res.send({
+    all: data.all,
+    coming: data.coming,
   });
 });
 

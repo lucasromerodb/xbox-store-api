@@ -1,49 +1,37 @@
 import { Router } from 'express';
-import fs from 'fs';
+import getGames from '../helpers/gamepass/fetchGames.js';
 
 const router = Router();
 
-const filePath = './output/output-extension.json';
 
-router.get('/', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    //TRYING TO CACHE RESPONSE // res.set("Cache-Control", "public, s-maxage=86400, stale-while-revalidate").send({
-    res.send({
-      updated_at: JSON.parse(data).updated_at,
-      all: JSON.parse(data).all,
-      coming: JSON.parse(data).coming,
-      leaving: JSON.parse(data).leaving,
-    });
+router.get('/', async (req, res) => {
+  const data = await getGames('extension');
+  res.send({
+    updated_at: data.updated_at,
+    all: data.all,
+    coming: data.coming,
+    leaving: data.leaving,
   });
 });
 
-router.get('/all', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send(JSON.parse(data).all);
-  });
+router.get('/all', async (req, res) => {
+  const data = await getGames('extension');
+  res.send(data.all);
 });
 
-router.get('/new', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send(JSON.parse(data).new);
-  });
+router.get('/new', async (req, res) => {
+  const data = await getGames('extension');
+  res.send(data.new);
 });
 
-router.get('/coming', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send(JSON.parse(data).coming);
-  });
+router.get('/coming', async (req, res) => {
+  const data = await getGames('extension');
+  res.send(data.coming);
 });
 
-router.get('/leaving', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send(JSON.parse(data).leaving);
-  });
+router.get('/leaving', async (req, res) => {
+  const data = await getGames('extension');
+  res.send(data.leaving);
 });
 
 export default router;

@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import { Router } from "express";
 const router = Router();
 
-import { dataParser } from "../helpers/gamepass/saveAllGames.js";
+import { dataParser } from "../helpers/gamepass/fetchGames.js";
 
 // expected endpoint: /api/gamepass/search/9NG8S82N9F4D/es-ar
 router.get("/:gameId/:market", async (req, res) => {

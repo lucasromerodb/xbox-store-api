@@ -1,42 +1,31 @@
-import fs from 'fs';
+import getGames from '../helpers/gamepass/fetchGames.js';
 import { Router } from 'express';
+
 const router = Router();
 
-const filePath = './output/output-full.json';
-
-router.get('/', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send(JSON.parse(data));
-  });
+router.get('/', async (req, res) => {
+  const data = await getGames('gamepass');
+  res.send(data);
 });
 
-router.get('/all', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send(JSON.parse(data).all);
-  });
+router.get('/all', async (req, res) => {
+  const data = await getGames('gamepass');
+  res.send(data.all);
 });
 
-router.get('/new', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send(JSON.parse(data).new);
-  });
+router.get('/new', async (req, res) => {
+  const data = await getGames('gamepass');
+  res.send(data.new);
 });
 
-router.get('/coming', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send(JSON.parse(data).coming);
-  });
+router.get('/coming', async (req, res) => {
+  const data = await getGames('gamepass');
+  res.send(data.coming);
 });
 
-router.get('/leaving', (req, res) => {
-  fs.readFile(filePath, function (err, data) {
-    if (err) throw err;
-    res.send(JSON.parse(data).leaving);
-  });
+router.get('/leaving', async (req, res) => {
+  const data = await getGames('gamepass');
+  res.send(data.leaving);
 });
 
 export default router;
