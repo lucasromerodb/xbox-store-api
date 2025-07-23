@@ -32,7 +32,11 @@ async function fetchIds(timestamp, list, location = "US", language = "en-us") {
 
   try {
     // expected url: https://catalog.gamepass.com/sigls/v2/?language=en&market=us&id=f6f1f99f-9b49-4ccd-b3bf-4d9767a77f5e
-    const response = await fetch(`https://catalog.gamepass.com/sigls/v2/?language=${language}&market=${location}&id=${LIST_OF_IDS[list]}`);
+    const response = await fetch(`https://catalog.gamepass.com/sigls/v2/?language=${language}&market=${location}&id=${LIST_OF_IDS[list]}`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
     // expected response: [ { MISC }, { id: "abc123" }. { id: "cba321" } ]
     const responseJson = await response.json();
     // expected data: { Products: ["abc123", "cba321"] }
@@ -53,6 +57,7 @@ export async function fetchDetails(timestamp, body = {}, list, location = "US", 
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(body),
     });
