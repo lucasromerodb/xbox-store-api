@@ -9,6 +9,13 @@ import gamepass_full from "./routes/gamepass-full.js";
 import gamepass_search from "./routes/gamepass-search.js";
 import helmet from "helmet";
 import morgan from "morgan";
+import rateLimit from 'express-rate-limit';
+
+const apiLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minuto
+  max: 10, // máximo 10 requests por IP por minuto
+  message: "Too many requests, please try again later.",
+});
 
 // app setup
 const app = express();
@@ -22,11 +29,11 @@ app.set("port", process.env.PORT || 3000);
 app.set("json spaces", 2);
 
 // routes
-app.use("/api/gamepass", gamepass_full);
-app.use("/api/gamepass/full", gamepass_full);
-app.use("/api/gamepass/extension", gamepass_extension);
-app.use("/api/gamepass/bot", gamepass_bot);
-app.use("/api/gamepass/search", gamepass_search);
+app.use("/api/gamepass", apiLimiter, gamepass_full);
+app.use("/api/gamepass/full", apiLimiter, gamepass_full);
+app.use("/api/gamepass/extension", apiLimiter, gamepass_extension);
+app.use("/api/gamepass/bot", apiLimiter, gamepass_bot);
+app.use("/api/gamepass/search", apiLimiter, gamepass_search);
 
 // Listen
 app.listen(app.get("port"), () => {
